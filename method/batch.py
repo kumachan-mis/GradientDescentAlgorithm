@@ -38,7 +38,7 @@ def run(
 
     while True:
         error_diff = prev_error - error
-        if error_diff*error_diff < 1e-12:
+        if error_diff * error_diff < 1e-14:
             break
 
         prev_error = error
