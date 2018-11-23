@@ -1,5 +1,6 @@
 # coding=utf-8
 import sys
+import time
 import random
 import numpy
 from matplotlib import pyplot
@@ -37,29 +38,23 @@ def _get_data():
 
 
 def gradient_descent(repeat_num, gradient_descent_func, get_updated_param):
+    numpy.set_printoptions(formatter={'float': '{:.6f}'.format})
     min_error = sys.float_info.max
     ideal_param = None
     ideal_count = None
-    limit_count = 50000
+
+    start_sec = time.process_time()
 
     for index in range(0, repeat_num):
         initial_param = numpy.array(
             (random.uniform(-50.0, 50.0), random.uniform(-50.0, 50.0))
         )
-        try:
-            error, param, count = gradient_descent_func(
-                initial_param, get_updated_param, _get_data(), limit_count,
-                pyplot.plot, 100, 'bo'
-            )
-        except TimeoutError:
-            sys.stderr.write(
-                'Count is over {}. Give up.\n'
-                .format(limit_count)
-            )
-            continue
-
+        error, param, count = gradient_descent_func(
+            initial_param, get_updated_param, _get_data(),
+            pyplot.plot, 100, 'bo'
+        )
         print(
-            '[{}] error:{}, param:{}, count: {}'
+            '[{:03}] error:{:.3f}, param:{}, count: {}'
             .format(index+1, error, param, count)
         )
         if error < min_error:
@@ -67,9 +62,11 @@ def gradient_descent(repeat_num, gradient_descent_func, get_updated_param):
             ideal_param = param
             ideal_count = count
 
+    end_sec = time.process_time()
+
     print(
-        'minimum error:{}, ideal parameter:{}'
-        .format(min_error, ideal_param)
+        'minimum error:{:.6f}, ideal parameter:{}, time per try:{:.6f}'
+        .format(min_error, ideal_param, (end_sec - start_sec) / repeat_num)
     )
     pyplot.plot(ideal_count, numpy.log10(min_error), 'ro')
     pyplot.show()

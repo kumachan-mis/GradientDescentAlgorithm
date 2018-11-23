@@ -23,7 +23,7 @@ def _grad_single_error_func(w, pair):
 
 
 def run(
-        initial_w, get_updated_param, data, limit_count,
+        initial_w, get_updated_param, data,
         plot_func, plot_frequency, plot_setting
 ):
     prev_error = 10.0
@@ -46,8 +46,6 @@ def run(
             error = _error_func(w, data)
 
         count += 1
-        if count == limit_count:
-            raise TimeoutError()
         if count % plot_frequency == 0:
             plot_func(count, numpy.log10(error), plot_setting)
 
