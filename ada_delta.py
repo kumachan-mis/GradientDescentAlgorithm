@@ -5,8 +5,8 @@ from method import batch, online
 
 
 def get_updated_param(param, grad):
-    epsilon = 0.001
-    weight = 0.9
+    epsilon = 1e-6
+    weight = 0.95
 
     get_updated_param.r \
         = weight * get_updated_param.r + (1.0 - weight) * grad * grad

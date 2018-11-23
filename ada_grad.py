@@ -3,7 +3,7 @@ from common import common
 import numpy
 from method import batch, online
 
-epsilon = 0.001
+epsilon = 1e-8
 
 
 def get_updated_param(param, grad):
