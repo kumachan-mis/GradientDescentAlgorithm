@@ -71,5 +71,5 @@ def gradient_descent(repeat_num, gradient_descent_func, get_updated_param):
         'minimum error:{}, ideal parameter:{}'
         .format(min_error, ideal_param)
     )
-    pyplot.plot(ideal_count, min_error, 'ro')
+    pyplot.plot(ideal_count, numpy.log10(min_error), 'ro')
     pyplot.show()

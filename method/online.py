@@ -32,7 +32,7 @@ def run(
     error = _error_func(w, data)
 
     count = 0
-    plot_func(count, error, plot_setting)
+    plot_func(count, numpy.log10(error), plot_setting)
 
     while True:
         error_diff = prev_error - error
@@ -49,7 +49,7 @@ def run(
         if count == limit_count:
             raise TimeoutError()
         if count % plot_frequency == 0:
-            plot_func(count, error, plot_setting)
+            plot_func(count, numpy.log10(error), plot_setting)
 
         random.shuffle(data)
 
